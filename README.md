@@ -1,4 +1,4 @@
-**Car-Price-Prediction**
+# Car Price Prediction
 
 This repository explores machine learning techniques to predict used car prices. It delves into data exploration, feature engineering, model selection, training, and evaluation to build an accurate pricing model.
 
