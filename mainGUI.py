@@ -48,6 +48,18 @@ style.configure('TCombobox', font=('Arial', 12))
 def validate_year(year):
     return year.isdigit() and len(year) == 4
 
+from CarNames import Names
+
+# Function to dynamically filter car names for the combobox
+def filter_names(event):
+    value = name_var.get().lower()
+    if value == '':
+        vars['Name']['values'] = Names  # Reset to full list if empty
+    else:
+        filtered_names = [car for car in Names if value in car.lower()]
+        vars['Name']['values'] = filtered_names  # Update the dropdown list
+    vars['Name'].event_generate('<Down>')  # Show dropdown on typing
+
 # Function to clear all input fields
 def reset_fields():
     for field in vars:
@@ -72,7 +84,7 @@ def predict_price():
         'owner': owner_var.get()
     }
     input_df = pd.DataFrame([data])
-    X_input = input_df.drop(['name'], axis=1)
+    X_input = input_df
     
     # Choose model (for demonstration, we'll use Gradient Boosting)
     model = models['Gradient Boosting Regression']
@@ -91,12 +103,10 @@ title_label.grid(row=0, column=0, columnspan=2, pady=20)
 
 fields = ['Name', 'Year', 'KM Driven', 'Fuel', 'Seller Type', 'Transmission', 'Owner']
 vars = {}
-
-from CarNames import Names
-
 row = 1
 col = 0
 
+# Create input fields
 for i, field in enumerate(fields):
     if i % 2 == 0 and i != 0:
         row += 1
@@ -106,7 +116,9 @@ for i, field in enumerate(fields):
     label.grid(row=row, column=col, padx=10, pady=5, sticky='w')
     
     if field == 'Name':
+        # Name field with autocomplete (Combobox)
         vars[field] = ttk.Combobox(root, values=Names)
+        vars[field].bind('<KeyRelease>', filter_names)  # Add event to filter names as user types
     elif field == 'Year':
         vars[field] = tk.Entry(root, validate='key', validatecommand=(root.register(lambda P: P.isdigit() or P == ""), '%P'))
     elif field == 'KM Driven':
@@ -120,6 +132,7 @@ for i, field in enumerate(fields):
     vars[field].grid(row=row, column=col+1, padx=10, pady=5, sticky='w', ipadx=10, ipady=5, columnspan=1)
     col += 2
 
+# Set variables for easier access in the predict function
 name_var = vars['Name']
 year_var = vars['Year']
 km_var = vars['KM Driven']
@@ -136,7 +149,9 @@ predict_button.grid(row=row+1, column=0, columnspan=2, pady=20)
 reset_button = ttk.Button(root, text="Reset", command=reset_fields)
 reset_button.grid(row=row+2, column=0, columnspan=2, pady=10)
 
+# Result label to display prediction
 result_label = tk.Label(root, text="", font=("Arial", 18, "bold"), bg='#f5faf5')
 result_label.grid(row=row+3, column=0, columnspan=2, pady=10)
 
+# Start the Tkinter event loop
 root.mainloop()
