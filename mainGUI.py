@@ -99,7 +99,7 @@ def predict_price():
 
 # UI Components
 title_label = tk.Label(root, text="Car Price Prediction", font=("Arial", 24, "bold"), bg='#9ce0ff', foreground='#040405')
-title_label.grid(row=0, column=0, columnspan=2, pady=20)
+title_label.grid(row=0, column=1, columnspan=2, pady=30)
 
 fields = ['Name', 'Year', 'KM Driven', 'Fuel', 'Seller Type', 'Transmission', 'Owner']
 vars = {}
@@ -113,7 +113,7 @@ for i, field in enumerate(fields):
         col = 0
     
     label = tk.Label(root, text=field, bg='#f5faf5')
-    label.grid(row=row, column=col, padx=10, pady=5, sticky='w')
+    label.grid(row=row, column=col, padx=20, pady=10, sticky='w')
     
     if field == 'Name':
         # Name field with autocomplete (Combobox)
