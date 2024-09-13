@@ -33,7 +33,7 @@ models = {
 # Initialize Tkinter
 root = tk.Tk()
 root.title("Car Price Prediction")
-root.geometry("700x700")
+root.geometry("650x500")
 root.configure(bg='#f5faf5')
 
 # Styling
@@ -99,7 +99,7 @@ def predict_price():
 
 # UI Components
 title_label = tk.Label(root, text="Car Price Prediction", font=("Arial", 24, "bold"), bg='#9ce0ff', foreground='#040405')
-title_label.grid(row=0, column=1, columnspan=2, pady=30)
+title_label.grid(row=0, column=0, columnspan=2, pady=30)
 
 fields = ['Name', 'Year', 'KM Driven', 'Fuel', 'Seller Type', 'Transmission', 'Owner']
 vars = {}
@@ -143,11 +143,11 @@ owner_var = vars['Owner']
 
 # Predict button
 predict_button = ttk.Button(root, text="Predict Price", command=predict_price)
-predict_button.grid(row=row+1, column=0, columnspan=2, pady=20)
+predict_button.grid(row=row+1, column=1, columnspan=2, pady=30)
 
 # Reset button to clear all inputs
 reset_button = ttk.Button(root, text="Reset", command=reset_fields)
-reset_button.grid(row=row+2, column=0, columnspan=2, pady=10)
+reset_button.grid(row=row+2, column=1, columnspan=2, pady=10)
 
 # Result label to display prediction
 result_label = tk.Label(root, text="", font=("Arial", 18, "bold"), bg='#f5faf5')
