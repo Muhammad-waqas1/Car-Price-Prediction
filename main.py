@@ -101,3 +101,23 @@ for name, metrics in results.items():
     print(f'{name} - CV MSE: {metrics["CV MSE"]}')
     print(f'{name} - MAE: {metrics["MAE"]}')
     print(f'{name} - RMSE: {metrics["RMSE"]}\n')
+
+
+def predict_price():
+    # Clear the previous result
+    data = {
+        'name': "Maruti 800 AC",
+        'year': 2007,
+        'km_driven': 70000,
+        'fuel': "Petrol",
+        'seller_type': "Individual",
+        'transmission': "Manual",
+        'owner': "First Owner"
+
+    }
+    input_df = pd.DataFrame([data])
+    X_input = input_df
+    
+    prediction = pipeline.predict(X_input)
+    print(f"Predicted Price: ${prediction[0]:,.2f}")
+# predict_price()
